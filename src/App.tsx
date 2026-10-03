@@ -17,14 +17,14 @@ function App() {
   const [wishes, setWishes] = useState<GuestWish[]>([
     {
       id: '1',
-      name: 'Ira',
-      message: 'Happy 21st Birthday to my gorgeous girlfriend! May this year bring you all the joy, success, and love you deserve. I love you! ❤️✨',
-      date: 'Today',
+      name: 'Trizsa Reign',
+      message: 'I would love for you to join me as I celebrate this special milestone in my life. Looking forward to making unforgettable memories with all of you! ✨🥂',
+      date: 'The Celebrant',
     },
     {
       id: '2',
-      name: 'Family & Friends',
-      message: 'Happy 21st Birthday Trizsa! Excited to celebrate this magical milestone with you! 🎉',
+      name: 'Family & Loved Ones',
+      message: 'Excited to celebrate 21 beautiful years with our dearest Trizsa! See you all on October 11! 🎉💖',
       date: 'Recent',
     },
   ]);

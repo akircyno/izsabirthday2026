@@ -17,14 +17,14 @@ export const Footer: React.FC = () => {
           We can't wait to share this unforgettable night with you.
         </p>
 
-        {/* Special cute boyfriend credit tagline */}
-        <div className="pt-4">
+        <div className="pt-2">
           <p className="text-[11px] text-[#e5b985]/70 tracking-wider inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#1f060b] border border-[#dfa85f]/20">
             <span>Made with</span>
             <Heart className="w-3 h-3 text-[#ff6b81] fill-[#ff6b81]" />
-            <span>&amp; design ng pinakapoging boyfriend ✨</span>
+            <span>for Trizsa Reign's 21st Birthday Celebration ✨</span>
           </p>
         </div>
+
 
         <p className="text-[10px] text-[#6e5f58] tracking-widest uppercase pt-2">
           October 11, 2026 • Subic
