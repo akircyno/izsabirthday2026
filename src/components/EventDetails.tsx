@@ -81,7 +81,7 @@ export const EventDetails: React.FC = () => {
             {/* Landmark Tag */}
             <div className="mt-4 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#dfa85f]/15 border border-[#dfa85f]/30 text-xs text-[#fce0ad]">
               <Coffee className="w-4 h-4 text-[#dfa85f] shrink-0" />
-              <span><strong>Landmark:</strong> Tabi ng 727 Coffee</span>
+              <span><strong>Landmark:</strong> Near 727 Coffee</span>
             </div>
           </div>
 

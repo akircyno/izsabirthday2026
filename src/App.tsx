@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { EnvelopeHero } from './components/EnvelopeHero';
 import { MusicPlayer } from './components/MusicPlayer';
 import { CelebrantSpotlight } from './components/CelebrantSpotlight';
@@ -73,26 +74,55 @@ function App() {
       {/* Main Website Content */}
       <main className={`transition-opacity duration-1000 ${hasEntered ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         {/* Main Header / Banner */}
-        <section className="pt-20 pb-10 px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#dfa85f]/15 border border-[#dfa85f]/30 mb-6">
+        <section className="pt-20 pb-10 px-4 text-center relative overflow-hidden">
+          {/* Subtle section glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-[#8b1e2c]/15 rounded-full blur-[80px] pointer-events-none" />
+
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#dfa85f]/15 border border-[#dfa85f]/30 mb-6"
+          >
             <Sparkles className="w-3.5 h-3.5 text-[#fce0ad]" />
             <span className="text-xs uppercase tracking-[0.25em] text-[#fce0ad] font-cinzel">
               Intimate Birthday Celebration
             </span>
-          </div>
+            <Sparkles className="w-3.5 h-3.5 text-[#fce0ad]" />
+          </motion.div>
 
-          <h1 className="font-serif text-4xl sm:text-7xl font-normal tracking-wide gold-gradient-text mb-3">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-serif text-4xl sm:text-7xl font-normal tracking-wide gold-gradient-text mb-3"
+          >
             Trizsa Reign
-          </h1>
-          <p className="font-script text-3xl sm:text-5xl text-[#f3d2c1]">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.35 }}
+            className="font-script text-3xl sm:text-5xl text-[#f3d2c1]"
+          >
             Turning 21
-          </p>
+          </motion.p>
 
-          <div className="w-20 h-[1px] bg-gradient-to-r from-transparent via-[#dfa85f] to-transparent mx-auto my-6" />
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="w-20 h-[1px] bg-gradient-to-r from-transparent via-[#dfa85f] to-transparent mx-auto my-6"
+          />
 
-          <p className="text-xs uppercase tracking-[0.3em] text-[#d4c3b3]">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="text-xs uppercase tracking-[0.3em] text-[#d4c3b3]"
+          >
             Sunday, October 11, 2026 • 9:00 PM
-          </p>
+          </motion.p>
         </section>
 
         {/* Live Countdown */}

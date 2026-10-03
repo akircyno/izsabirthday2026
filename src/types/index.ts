@@ -1,7 +1,7 @@
 export interface RSVPData {
   id?: string;
   fullName: string;
-  attending: 'yes' | 'no' | '';
+  attending: 'yes' | 'no';
   guestCount: number;
   dietaryRestrictions: string;
   birthdayWish: string;

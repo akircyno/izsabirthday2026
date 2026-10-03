@@ -10,7 +10,7 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ hasEntered }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio] = useState(() => {
     // Elegant royalty free romantic background piano music
-    const sound = new Audio('https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3');
+    const sound = new Audio('/audio/bg-music.mp3');
     sound.loop = true;
     sound.volume = 0.5;
     return sound;
