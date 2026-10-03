@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+:root {
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-script: 'Alex Brush', cursive;
+  --font-cinzel: 'Cinzel', serif;
+  --font-sans: 'Montserrat', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #120306;
+  color: #f8ede3;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+.font-cinzel {
+  font-family: var(--font-cinzel);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Glassmorphism & Luxury effects */
+.glass-card {
+  background: rgba(30, 8, 14, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 185, 133, 0.25);
+}
+
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #fce0ad 0%, #dfa85f 50%, #fef3c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border {
+  border-color: rgba(223, 168, 95, 0.4);
+}
+
+.red-glow {
+  box-shadow: 0 0 40px -10px rgba(184, 30, 52, 0.45);
+}
+
+.gold-glow {
+  box-shadow: 0 0 35px -5px rgba(223, 168, 95, 0.35);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #120306;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a121a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8b1e2c;
+}
+
