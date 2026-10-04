@@ -34,18 +34,16 @@ export const HeroSaveTheDate: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.15 }}
           className="my-4 flex justify-center"
         >
-          <div className="relative w-32 h-32 flex items-center justify-center">
-            {/* Outer Laurel Ornament */}
-            <div className="absolute inset-0 rounded-full border border-dashed border-[#dfa85f]/50 p-2">
-              <div className="w-full h-full rounded-full border border-[#dfa85f]/30 flex items-center justify-center bg-[#330814]/40" />
-            </div>
+          {/* Outer Laurel Ornament */}
+          <div className="absolute inset-0 rounded-full border border-dashed border-[#dfa85f]/50 p-2 w-32 h-32" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+            <div className="w-full h-full rounded-full border border-[#dfa85f]/30 bg-[#330814]/40" />
+          </div>
 
-            {/* Authentic Cursive Monogram Big T */}
-            <div className="relative z-10 flex items-center justify-center w-20 h-20">
-              <span className="font-script text-6xl text-[#fce0ad] select-none filter drop-shadow-[0_2px_14px_rgba(223,168,95,0.8)]">
-                T
-              </span>
-            </div>
+          {/* Authentic Cursive Monogram Big T - Centered Inside Circle */}
+          <div className="relative z-10 w-32 h-32 flex items-center justify-center">
+            <span className="font-script text-7xl text-[#fce0ad] select-none filter drop-shadow-[0_2px_14px_rgba(223,168,95,0.8)] leading-none">
+              T
+            </span>
           </div>
         </motion.div>
 
