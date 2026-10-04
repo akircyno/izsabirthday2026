@@ -53,7 +53,7 @@ export const WishesWall: React.FC<WishesWallProps> = ({ wishes, onAddWish }) => 
           Wishes for Izsa
         </motion.h2>
         <p className="text-xs text-[#d4c3b3]/75 font-light mb-8">
-          Leave a message or greeting for Izsa's 21st birthday.
+          Leave a message or greeting for my 21st birthday.
         </p>
 
         {/* Input Form */}
@@ -67,7 +67,7 @@ export const WishesWall: React.FC<WishesWallProps> = ({ wishes, onAddWish }) => 
           />
           <textarea
             rows={3}
-            placeholder="Write a warm birthday wish for Izsa..."
+            placeholder="Write a warm birthday wish for me..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className={`${inputClass} resize-none`}
@@ -86,7 +86,7 @@ export const WishesWall: React.FC<WishesWallProps> = ({ wishes, onAddWish }) => 
         {wishes.length === 0 ? (
           <div className="py-8 px-4 rounded-xl border border-dashed border-[#dfa85f]/30 text-center">
             <p className="text-xs text-[#dfa85f]/80 font-serif italic">
-              Be the first to leave a warm birthday greeting for Izsa!
+              Be the first to leave a warm birthday greeting for me!
             </p>
           </div>
         ) : (

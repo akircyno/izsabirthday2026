@@ -27,3 +27,4 @@ dist-ssr
 reference/
 bg-music/
 
+.env*

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import tmMonogramGold from '../assets/tm-monogram-gold.png';
 
 interface EnvelopeHeroProps {
   onOpen: () => void;
@@ -66,7 +65,7 @@ export const EnvelopeHero: React.FC<EnvelopeHeroProps> = ({ onOpen }) => {
               transition={{ delay: 0.25, duration: 0.7 }}
               className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.32em] text-[#fce0ad]/85 uppercase mb-3"
             >
-              You are invited to the celebration of
+              You are warmly invited to celebrate with me
             </motion.p>
 
             <motion.h1
@@ -140,14 +139,18 @@ export const EnvelopeHero: React.FC<EnvelopeHeroProps> = ({ onOpen }) => {
                     <circle r="34" fill="none" stroke="rgba(255, 235, 180, 0.4)" strokeWidth="1.5" />
                     <circle r="27" fill="#c48e42" fillOpacity="0.4" />
                     <circle r="26" fill="none" stroke="rgba(110, 70, 15, 0.5)" strokeWidth="1.2" />
-                    <image
-                      href={tmMonogramGold}
-                      x="-18"
-                      y="-18"
-                      width="36"
-                      height="36"
-                      preserveAspectRatio="xMidYMid meet"
-                    />
+                    <text
+                      x="0"
+                      y="14"
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fontFamily="'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive"
+                      fontSize="46"
+                      fill="#fff3d6"
+                      style={{ filter: 'drop-shadow(0 2px 4px rgba(70, 20, 10, 0.75))' }}
+                    >
+                      T
+                    </text>
                   </g>
                 </svg>
               </div>
@@ -183,7 +186,9 @@ export const EnvelopeHero: React.FC<EnvelopeHeroProps> = ({ onOpen }) => {
               transition={{ duration: 1.4, ease: 'easeInOut', repeat: Infinity }}
               className="w-14 h-14 rounded-full border-2 border-dashed border-[#dfa85f] flex items-center justify-center p-2.5 bg-[#20040b]/80"
             >
-              <img src={tmMonogramGold} alt="TM Monogram" className="w-full h-full object-contain" />
+              <span className="font-script text-3xl text-[#fce0ad] filter drop-shadow-[0_2px_8px_rgba(223,168,95,0.7)]">
+                T
+              </span>
             </motion.div>
             <p className="font-cinzel text-[#fce0ad] tracking-[0.25em] text-xs uppercase">
               Opening Invitation…

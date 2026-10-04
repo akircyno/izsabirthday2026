@@ -14,7 +14,7 @@ export const EventDetails: React.FC = () => {
           transition={{ duration: 0.7 }}
           className="font-script text-4xl sm:text-5xl text-[#5c0f1c] mb-4"
         >
-          Dearest Family & Friends
+          Dearest Friends
         </motion.h2>
 
         {/* Invitation Message */}

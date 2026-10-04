@@ -41,7 +41,7 @@ export const RSVPFields: React.FC<RSVPFieldsProps> = ({
       </div>
 
       <div>
-        <label className={labelClass}>Will you be joining us? *</label>
+        <label className={labelClass}>Will you be joining me? *</label>
         <div className="grid grid-cols-2 gap-3">
           <button
             type="button"
@@ -71,7 +71,7 @@ export const RSVPFields: React.FC<RSVPFieldsProps> = ({
       {attending === 'yes' && (
         <>
           <div>
-            <label className={labelClass}>Number of Guests</label>
+            <label className={labelClass}>Number of Guests (Pax)</label>
             <select
               value={guestCount}
               onChange={(e) => onGuestCountChange(Number(e.target.value))}

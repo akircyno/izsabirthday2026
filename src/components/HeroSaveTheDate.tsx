@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import tmMonogramGold from '../assets/tm-monogram-gold.png';
 
 export const HeroSaveTheDate: React.FC = () => {
   return (
@@ -27,7 +26,7 @@ export const HeroSaveTheDate: React.FC = () => {
           Save the Date
         </motion.p>
 
-        {/* Gold Laurel Monogram Crest with TM */}
+        {/* Gold Laurel Monogram Crest with Big Cursive T */}
         <motion.div
           initial={{ opacity: 0, scale: 0.88 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -41,13 +40,11 @@ export const HeroSaveTheDate: React.FC = () => {
               <div className="w-full h-full rounded-full border border-[#dfa85f]/30 flex items-center justify-center bg-[#330814]/40" />
             </div>
 
-            {/* Authentic Cursive Monogram TM */}
-            <div className="relative z-10 flex items-center justify-center w-20 h-20 p-1">
-              <img
-                src={tmMonogramGold}
-                alt="TM Monogram"
-                className="w-full h-full object-contain filter drop-shadow-[0_2px_12px_rgba(223,168,95,0.7)]"
-              />
+            {/* Authentic Cursive Monogram Big T */}
+            <div className="relative z-10 flex items-center justify-center w-20 h-20">
+              <span className="font-script text-6xl text-[#fce0ad] select-none filter drop-shadow-[0_2px_14px_rgba(223,168,95,0.8)]">
+                T
+              </span>
             </div>
           </div>
         </motion.div>
@@ -71,7 +68,7 @@ export const HeroSaveTheDate: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="font-cinzel text-[10px] tracking-[0.25em] text-[#e5b985] uppercase mb-4"
         >
-          Twenty-First Birthday
+          My Twenty-First Birthday
         </motion.p>
 
         <div className="w-20 h-[1px] bg-gradient-to-r from-transparent via-[#dfa85f]/70 to-transparent mx-auto mb-4" />

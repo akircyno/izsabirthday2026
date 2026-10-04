@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
 const LETTER_PARAGRAPHS = [
-  'Dear family & friends,',
+  'Dear Friends,',
   'Turning 21 is a special milestone, and as I step into this new chapter, I am overwhelmed with gratitude for each of you who has been part of my life.',
   'Every memory, conversation, and laugh we have shared has shaped who I am today. Having your love and support means more to me than words can say.',
   'For my 21st birthday, my only wish is to celebrate together with good food, great music, and the people closest to my heart.',

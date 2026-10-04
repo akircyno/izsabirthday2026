@@ -27,8 +27,8 @@ export const RSVPSuccessCard: React.FC<RSVPSuccessCardProps> = ({
       </h3>
       <p className="text-xs text-[#d4c3b3] font-light leading-relaxed mb-6">
         {attending === 'yes'
-          ? `Thank you, ${fullName}! We can't wait to celebrate Izsa's 21st birthday with you.`
-          : `Thank you for letting us know, ${fullName}. You will be warmly missed!`}
+          ? `Thank you, ${fullName}! I can't wait to celebrate my 21st birthday with you.`
+          : `Thank you for letting me know, ${fullName}. You will be warmly missed!`}
       </p>
       <button
         onClick={onReset}

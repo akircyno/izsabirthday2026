@@ -36,16 +36,16 @@ export const GiftEtiquette: React.FC = () => {
               />
             </div>
             <p className="text-xs uppercase tracking-[0.18em] text-[#521321] font-medium mb-1.5">
-              Your Presence is Our Joy
+              Your Presence is My Joy
             </p>
             <p className="text-xs text-[#6e2030] leading-relaxed max-w-xs font-light">
-              Your presence, prayers, and heartfelt wishes are the most precious gift to celebrate this milestone.
+              Your presence, love, and prayers are the greatest gift as I celebrate this milestone. Having you celebrate with me is all I wish for.
             </p>
           </motion.div>
 
           <div className="w-16 h-[1px] bg-[#8b1e2c]/20 mx-auto" />
 
-          {/* Note 2: Monetary Gift */}
+          {/* Note 2: Simple Gift or Letter */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -62,10 +62,10 @@ export const GiftEtiquette: React.FC = () => {
               />
             </div>
             <p className="text-xs uppercase tracking-[0.18em] text-[#521321] font-medium mb-1.5">
-              Monetary Gift
+              A Simple Gift or Letter
             </p>
             <p className="text-xs text-[#6e2030] leading-relaxed max-w-xs font-light">
-              Should you wish to honor Izsa with a gift, a monetary envelope is warmly appreciated to help her begin her 21st chapter.
+              Gifts are not required at all. Should you wish to bring something, a simple gift or a heartfelt handwritten letter is warmly appreciated to help me begin my 21st chapter.
             </p>
           </motion.div>
         </div>

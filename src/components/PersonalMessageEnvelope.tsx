@@ -58,7 +58,7 @@ export const PersonalMessageEnvelope: React.FC = () => {
               <div className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#8b1e2c] to-[#a32839] text-[#fff1d6] shadow-md group-hover:brightness-110 transition-all border border-[#dfa85f]/40">
                 <MailOpen className="w-3.5 h-3.5 text-[#fce0ad]" />
                 <span className="font-cinzel text-xs uppercase tracking-[0.2em] font-medium">
-                  Read Izsa's Letter
+                  Read My Letter
                 </span>
               </div>
               <p className="text-[9px] text-[#8b1e2c]/80 tracking-widest mt-1.5 uppercase font-cinzel">

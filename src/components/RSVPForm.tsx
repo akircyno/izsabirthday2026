@@ -114,10 +114,13 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
           transition={{ duration: 0.7 }}
           className="font-script text-4xl sm:text-5xl text-[#fce0ad] mb-2"
         >
-          We Look Forward to Seeing You
+          I Look Forward to Seeing You
         </motion.h2>
-        <p className="text-[10px] tracking-[0.2em] text-[#d4c3b3]/75 uppercase font-light mb-8">
-          Kindly RSVP by October 1, 2026
+        <p className="text-[11px] tracking-[0.2em] text-[#fce0ad] font-cinzel uppercase font-semibold mb-2">
+          Kindly RSVP from October 4 to 6, 2026
+        </p>
+        <p className="text-xs text-[#d4c3b3]/85 font-light max-w-sm mx-auto leading-relaxed mb-8">
+          Please kindly confirm your attendance between October 4 to 6 so I can finalize our venue & dinner reservation with the exact headcount (number of pax).
         </p>
 
         {isSubmitted ? (

@@ -29,7 +29,7 @@ export const DressCode: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="text-xs uppercase tracking-[0.18em] text-[#5e1927] leading-relaxed mb-8 max-w-xs mx-auto font-light"
         >
-          Semi-formal or elegant dinner attire in harmony with our palette.
+          Semi-formal or elegant dinner attire in harmony with my palette.
         </motion.p>
 
         {/* Color Palette Swatches */}
@@ -67,7 +67,7 @@ export const DressCode: React.FC = () => {
             Strictly No Black
           </p>
           <p className="text-xs text-[#5c1322] leading-relaxed font-light px-2">
-            We kindly ask our guests to refrain from wearing black so the evening ambiance stays warm, cohesive, and luminous.
+            I kindly ask you to refrain from wearing black so the evening ambiance stays warm, cohesive, and luminous.
           </p>
           <div className="w-12 h-[1px] bg-[#8b1e2c]/25 mx-auto mt-3" />
         </motion.div>
