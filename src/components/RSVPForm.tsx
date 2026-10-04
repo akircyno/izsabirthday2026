@@ -51,7 +51,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
 
@@ -80,8 +80,29 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
       submittedAt: new Date().toISOString(),
     };
 
+    // Save to localStorage
     const existing = JSON.parse(localStorage.getItem('izsa_21_rsvps') || '[]');
     localStorage.setItem('izsa_21_rsvps', JSON.stringify([...existing, submission]));
+
+    // Send to Google Sheets via Google Apps Script webhook
+    const GOOGLE_APPS_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
+    
+    if (GOOGLE_APPS_SCRIPT_URL) {
+      try {
+        await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(submission),
+          mode: 'no-cors', // Required for Google Apps Script webhooks
+        });
+      } catch (error) {
+        console.warn('Could not sync to Google Sheets:', error);
+        // Continue even if Google Sheets sync fails - localStorage is still saved
+      }
+    }
+
     onRSVPSubmitted(submission);
     setIsSubmitting(false);
     setIsSubmitted(true);
