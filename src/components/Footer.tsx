@@ -1,35 +1,30 @@
 import React from 'react';
-import { Heart, Sparkles } from 'lucide-react';
+import tmMonogramGold from '../assets/tm-monogram-gold.png';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="relative py-12 px-4 text-center border-t border-white/10 bg-[#0d0205]">
-      <div className="max-w-md mx-auto space-y-4">
-        <div className="flex items-center justify-center gap-2 text-[#dfa85f]">
-          <Sparkles className="w-4 h-4 text-[#fce0ad]" />
-          <span className="font-serif text-lg tracking-wider text-[#fce0ad]">
-            Trizsa Reign @ 21
-          </span>
-          <Sparkles className="w-4 h-4 text-[#fce0ad]" />
+    <footer className="w-full py-14 px-4 text-center bg-[#0c0204] text-[#d4c3b3]">
+      <div className="max-w-[420px] mx-auto space-y-4">
+        {/* Monogram / Crest */}
+        <div className="w-12 h-12 rounded-full border border-[#dfa85f]/40 mx-auto flex items-center justify-center p-2.5 bg-[#1a0409]">
+          <img src={tmMonogramGold} alt="TM Monogram" className="w-full h-full object-contain" />
         </div>
 
-        <p className="text-xs text-[#d4c3b3]/80 font-light">
-          We can't wait to share this unforgettable night with you.
+        <p className="font-script text-3xl sm:text-4xl text-[#fce0ad]">
+          Izsa
         </p>
 
-        <div className="pt-2">
-          <p className="text-[11px] text-[#e5b985]/70 tracking-wider inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#1f060b] border border-[#dfa85f]/20">
-            <span>Made with</span>
-            <Heart className="w-3 h-3 text-[#ff6b81] fill-[#ff6b81]" />
-            <span>for Trizsa Reign's 21st Birthday Celebration ✨</span>
-          </p>
-        </div>
+        <p className="text-xs text-[#d4c3b3]/80 font-light max-w-xs mx-auto leading-relaxed">
+          Thank you for being part of this unforgettable 21st milestone celebration.
+        </p>
 
+        <div className="w-16 h-[1px] bg-[#dfa85f]/30 mx-auto pt-1" />
 
-        <p className="text-[10px] text-[#6e5f58] tracking-widest uppercase pt-2">
-          October 11, 2026 • Subic
+        <p className="text-[10px] uppercase tracking-[0.28em] text-[#dfa85f]/70 font-cinzel">
+          October 11, 2026 • Subic Bay
         </p>
       </div>
     </footer>
   );
 };
+

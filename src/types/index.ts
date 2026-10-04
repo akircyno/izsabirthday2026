@@ -3,8 +3,9 @@ export interface RSVPData {
   fullName: string;
   attending: 'yes' | 'no';
   guestCount: number;
-  dietaryRestrictions: string;
-  birthdayWish: string;
+  additionalGuests?: string[];
+  dietaryRestrictions?: string;
+  birthdayWish?: string;
   submittedAt?: string;
 }
 
@@ -14,3 +15,4 @@ export interface GuestWish {
   message: string;
   date: string;
 }
+

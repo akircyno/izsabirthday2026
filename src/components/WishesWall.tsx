@@ -3,12 +3,13 @@ import { motion } from 'framer-motion';
 import { Heart, Send } from 'lucide-react';
 import type { GuestWish } from '../types';
 
-
-
 interface WishesWallProps {
   wishes: GuestWish[];
   onAddWish: (name: string, message: string) => void;
 }
+
+const inputClass =
+  'w-full px-4 py-3 rounded-xl bg-[#2b0811]/90 border border-[#dfa85f]/30 text-[#f8ede3] text-xs sm:text-sm focus:outline-none focus:border-[#dfa85f] placeholder:text-[#8a6870] font-light transition-colors';
 
 export const WishesWall: React.FC<WishesWallProps> = ({ wishes, onAddWish }) => {
   const [name, setName] = useState('');
@@ -17,8 +18,9 @@ export const WishesWall: React.FC<WishesWallProps> = ({ wishes, onAddWish }) => 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !message.trim()) return;
-    onAddWish(name, message);
+    if (!message.trim()) return;
+    const author = name.trim() || 'A Warm Guest';
+    onAddWish(author, message.trim());
     setName('');
     setMessage('');
   };
@@ -30,94 +32,100 @@ export const WishesWall: React.FC<WishesWallProps> = ({ wishes, onAddWish }) => 
   };
 
   return (
-    <section className="py-16 px-4 max-w-4xl mx-auto">
-      <div className="text-center mb-10">
-        <span className="text-xs uppercase tracking-[0.3em] text-[#e5b985]/80 font-medium">
-          Love & Greetings
-        </span>
-        <h2 className="font-serif text-3xl sm:text-4xl text-[#fce0ad] font-normal tracking-wide mt-2">
-          Wishes for Trizsa
-        </h2>
-        <p className="text-xs sm:text-sm text-[#d4c3b3] mt-2 font-light">
-          Leave your heartfelt 21st birthday messages and love for the celebrant.
+    <section className="w-full py-16 px-4 bg-gradient-to-b from-[#1a040a] via-[#24060d] to-[#120306] text-center border-b border-[#dfa85f]/25">
+      <div className="max-w-[420px] mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="font-cinzel text-[10px] tracking-[0.3em] text-[#dfa85f]/80 uppercase mb-2"
+        >
+          Celebration Guestbook
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="font-script text-4xl sm:text-5xl text-[#fce0ad] mb-2"
+        >
+          Wishes for Izsa
+        </motion.h2>
+        <p className="text-xs text-[#d4c3b3]/75 font-light mb-8">
+          Leave a message or greeting for Izsa's 21st birthday.
         </p>
-        <div className="w-12 h-[1px] bg-[#dfa85f]/40 mx-auto mt-4" />
-      </div>
 
-      {/* Leave A Wish Quick Input */}
-      <div className="mb-12 max-w-xl mx-auto p-6 rounded-3xl glass-card border border-[#dfa85f]/30">
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <input
-              type="text"
-              placeholder="Your Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-[#1f060b]/80 border border-[#dfa85f]/30 text-[#f8ede3] text-sm focus:outline-none focus:border-[#dfa85f]"
-            />
-          </div>
-          <div>
-            <textarea
-              rows={2}
-              placeholder="Write a sweet birthday wish..."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-[#1f060b]/80 border border-[#dfa85f]/30 text-[#f8ede3] text-sm focus:outline-none focus:border-[#dfa85f] resize-none"
-            />
-          </div>
+        {/* Input Form */}
+        <form onSubmit={handleSubmit} className="p-5 sm:p-6 rounded-2xl bg-[#22050c]/80 border border-[#dfa85f]/30 shadow-xl space-y-3 text-left mb-8">
+          <input
+            type="text"
+            placeholder="Your Name (Optional)"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className={inputClass}
+          />
+          <textarea
+            rows={3}
+            placeholder="Write a warm birthday wish for Izsa..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className={`${inputClass} resize-none`}
+            required
+          />
           <button
             type="submit"
-            className="w-full py-3 px-6 rounded-xl bg-[#8b1e2c] hover:bg-[#a32839] border border-[#dfa85f]/40 text-[#fce0ad] text-xs uppercase tracking-widest font-medium transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+            className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-[#8b1e2c] to-[#a32839] hover:brightness-110 text-[#fff1d6] font-cinzel text-xs uppercase tracking-[0.2em] font-medium transition-all flex items-center justify-center gap-2 cursor-pointer border border-[#dfa85f]/40 shadow-md"
           >
             <Send className="w-3.5 h-3.5" />
             <span>Send Birthday Wish</span>
           </button>
         </form>
-      </div>
 
-      {/* Wishes Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {wishes.map((wish, index) => {
-          const isLiked = likedIds.includes(wish.id);
-          return (
-            <motion.div
-              key={wish.id}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: (index % 3) * 0.1 }}
-              className="p-5 rounded-2xl glass-card border border-[#dfa85f]/20 flex flex-col justify-between hover:border-[#dfa85f]/50 transition-all shadow-md group"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-serif text-base text-[#fce0ad] font-medium truncate">
-                    {wish.name}
-                  </span>
-                  <span className="text-[10px] text-[#9c897f]">
-                    {wish.date}
-                  </span>
-                </div>
-                <p className="text-xs text-[#d4c3b3] leading-relaxed font-light italic">
-                  "{wish.message}"
-                </p>
-              </div>
-
-              <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs">
-                <span className="text-[10px] text-[#dfa85f]/70 uppercase tracking-wider">
-                  21st Birthday Wish
-                </span>
-                <button
-                  onClick={() => toggleLike(wish.id)}
-                  className={`flex items-center gap-1 transition-colors cursor-pointer ${
-                    isLiked ? 'text-[#ff6b81]' : 'text-[#8a7a72] hover:text-[#ff6b81]'
-                  }`}
+        {/* Wishes List */}
+        {wishes.length === 0 ? (
+          <div className="py-8 px-4 rounded-xl border border-dashed border-[#dfa85f]/30 text-center">
+            <p className="text-xs text-[#dfa85f]/80 font-serif italic">
+              Be the first to leave a warm birthday greeting for Izsa!
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-3 text-left">
+            {wishes.map((wish, index) => {
+              const isLiked = likedIds.includes(wish.id);
+              return (
+                <motion.div
+                  key={wish.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className="p-4 rounded-xl bg-[#22050c]/60 border border-[#dfa85f]/20 shadow-sm"
                 >
-                  <Heart className={`w-3.5 h-3.5 ${isLiked ? 'fill-[#ff6b81]' : ''}`} />
-                </button>
-              </div>
-            </motion.div>
-          );
-        })}
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-serif text-sm sm:text-base text-[#fce0ad] font-medium">
+                      {wish.name}
+                    </span>
+                    <span className="text-[10px] text-[#dfa85f]/60 font-cinzel">{wish.date}</span>
+                  </div>
+                  <p className="text-xs text-[#ebdcd1] leading-relaxed font-light mb-2">
+                    "{wish.message}"
+                  </p>
+                  <div className="flex justify-end">
+                    <button
+                      onClick={() => toggleLike(wish.id)}
+                      className={`flex items-center gap-1.5 text-xs transition-colors cursor-pointer ${
+                        isLiked ? 'text-[#ff6b81]' : 'text-[#a68b82] hover:text-[#ff6b81]'
+                      }`}
+                    >
+                      <Heart className={`w-3.5 h-3.5 ${isLiked ? 'fill-[#ff6b81]' : ''}`} />
+                    </button>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

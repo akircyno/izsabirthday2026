@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
-
+﻿import React, { useEffect, useState, useRef } from 'react';
+import { VolumeX } from 'lucide-react';
 
 interface MusicPlayerProps {
   hasEntered: boolean;
@@ -8,68 +7,68 @@ interface MusicPlayerProps {
 
 export const MusicPlayer: React.FC<MusicPlayerProps> = ({ hasEntered }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audio] = useState(() => {
-    // Elegant royalty free romantic background piano music
-    const sound = new Audio('/audio/bg-music.mp3');
-    sound.loop = true;
-    sound.volume = 0.5;
-    return sound;
-  });
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (hasEntered) {
-      audio.play().then(() => {
-        setIsPlaying(true);
-      }).catch((e) => {
-        console.log('Audio autoplay prevented, awaiting user interaction:', e);
-      });
-    }
+    audioRef.current = new Audio('/audio/bg-music.mp3');
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.45;
 
     return () => {
-      audio.pause();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
     };
-  }, [hasEntered, audio]);
+  }, []);
+
+  useEffect(() => {
+    if (hasEntered && audioRef.current) {
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((e) => {
+          console.log('Autoplay blocked by browser policy:', e);
+          setIsPlaying(false);
+        });
+    }
+  }, [hasEntered]);
 
   const toggleMusic = () => {
+    if (!audioRef.current) return;
     if (isPlaying) {
-      audio.pause();
+      audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audio.play().then(() => {
-        setIsPlaying(true);
-      }).catch(console.error);
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((e) => console.log('Play error:', e));
     }
   };
 
+  if (!hasEntered) return null;
+
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    <div className="fixed bottom-5 right-5 z-40">
       <button
         onClick={toggleMusic}
-        className={`group relative flex items-center gap-2.5 px-4 py-2.5 rounded-full border transition-all duration-500 shadow-2xl backdrop-blur-xl ${
-          isPlaying
-            ? 'bg-[#3b0b14]/80 border-[#dfa85f]/60 text-[#fce0ad] gold-glow'
-            : 'bg-[#1a0509]/80 border-[#ffffff]/20 text-[#a89f91]'
-        }`}
-        title={isPlaying ? 'Mute Music' : 'Play Romantic Music'}
+        aria-label={isPlaying ? 'Pause music' : 'Play music'}
+        className="group relative flex items-center justify-center w-12 h-12 rounded-full border border-[#dfa85f]/60 bg-[#24060d]/90 text-[#fce0ad] shadow-[0_4px_20px_rgba(0,0,0,0.6)] backdrop-blur-md hover:scale-110 transition-all cursor-pointer"
       >
+        {/* Spinning Vinyl Texture when playing */}
+        {isPlaying && (
+          <div className="absolute inset-0 rounded-full border border-dashed border-[#dfa85f]/40 animate-spin [animation-duration:8s] pointer-events-none" />
+        )}
+
         {isPlaying ? (
-          <>
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#dfa85f] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-[#e5b985]"></span>
-            </span>
-            <Volume2 className="w-4 h-4 animate-bounce text-[#fce0ad]" />
-            <span className="text-xs tracking-wider uppercase font-medium hidden sm:inline-block">
-              Playing Romance
-            </span>
-          </>
+          <div className="flex items-center gap-0.5 text-[#dfa85f]">
+            <span className="w-1 h-3.5 bg-[#dfa85f] rounded-full animate-pulse" />
+            <span className="w-1 h-5 bg-[#dfa85f] rounded-full animate-pulse [animation-delay:0.2s]" />
+            <span className="w-1 h-2.5 bg-[#dfa85f] rounded-full animate-pulse [animation-delay:0.4s]" />
+          </div>
         ) : (
-          <>
-            <VolumeX className="w-4 h-4 text-[#a89f91]" />
-            <span className="text-xs tracking-wider uppercase font-medium hidden sm:inline-block">
-              Music Muted
-            </span>
-          </>
+          <VolumeX className="w-5 h-5 text-[#dfa85f]/70" />
         )}
       </button>
     </div>
