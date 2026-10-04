@@ -5,7 +5,7 @@ import type { GuestWish } from '../types';
 
 // Google Apps Script Web App — doGet returns all wishes, doPost adds a new one
 const APPS_SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbzbX5sVPB1xqXIkh0LcVBmKRAqXfnqjVjDqMnfZ0s0LDO6MBiN5wTSuLqYcAbClDkqC/exec';
+  'https://script.google.com/macros/s/AKfycbyXLYSxrikd2zC2hPJ19eC8O82rnUTEffWdO3RXBjWYUxoCBIXB0FzG4gH7ikw2ihCupw/exec';
 
 const inputClass =
   'w-full px-4 py-3 rounded-xl bg-[#2b0811]/90 border border-[#dfa85f]/30 text-[#f8ede3] text-xs sm:text-sm focus:outline-none focus:border-[#dfa85f] placeholder:text-[#8a6870] font-light transition-colors';

@@ -80,27 +80,37 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
       submittedAt: new Date().toISOString(),
     };
 
-    // Save to localStorage
-    const existing = JSON.parse(localStorage.getItem('izsa_21_rsvps') || '[]');
-    localStorage.setItem('izsa_21_rsvps', JSON.stringify([...existing, submission]));
+    // BACKUP LAYER 1: Save to browser localStorage
+    try {
+      const existing = JSON.parse(localStorage.getItem('izsa_21_rsvps') || '[]');
+      localStorage.setItem('izsa_21_rsvps', JSON.stringify([...existing, submission]));
+      console.log('✅ BACKUP 1: Saved to browser localStorage');
+    } catch (error) {
+      console.warn('⚠️ Could not save to localStorage:', error);
+    }
 
-    // Send to Google Sheets via Google Apps Script webhook
-    const GOOGLE_APPS_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
-    
-    if (GOOGLE_APPS_SCRIPT_URL) {
-      try {
-        await fetch(GOOGLE_APPS_SCRIPT_URL, {
+    // BACKUP LAYER 2: Send to Google Sheets via Apps Script
+    try {
+      await fetch(
+        'https://script.google.com/macros/s/AKfycbyXLYSxrikd2zC2hPJ19eC8O82rnUTEffWdO3RXBjWYUxoCBIXB0FzG4gH7ikw2ihCupw/exec',
+        {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(submission),
-          mode: 'no-cors', // Required for Google Apps Script webhooks
-        });
-      } catch (error) {
-        console.warn('Could not sync to Google Sheets:', error);
-        // Continue even if Google Sheets sync fails - localStorage is still saved
-      }
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'submitRSVP',
+            id: submission.id,
+            fullName: submission.fullName,
+            attending: submission.attending,
+            guestCount: submission.guestCount,
+            additionalGuests: submission.additionalGuests || [],
+            submittedAt: submission.submittedAt,
+          }),
+        }
+      );
+      console.log('✅ BACKUP 2: Submitted to Google Sheets');
+    } catch (error) {
+      console.warn('⚠️ Could not send to Google Sheets:', error);
     }
 
     onRSVPSubmitted(submission);
@@ -141,7 +151,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ onRSVPSubmitted }) => {
           Kindly RSVP from October 4 to 6, 2026
         </p>
         <p className="text-xs text-[#d4c3b3]/85 font-light max-w-sm mx-auto leading-relaxed mb-8">
-          Please kindly confirm your attendance between October 4 to 6 so I can finalize our venue & dinner reservation with the exact headcount (number of pax).
+          Please kindly confirm your attendance between October 4 to 6 so I can finalize our venue & dinner reservation with the exact headcount.
         </p>
 
         {isSubmitted ? (
