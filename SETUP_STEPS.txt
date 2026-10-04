@@ -1,0 +1,135 @@
+═══════════════════════════════════════════════════════════════════════════════
+  RSVP → GOOGLE SHEETS INTEGRATION - SETUP STEPS
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 1: CREATE GOOGLE APPS SCRIPT WEBHOOK
+─────────────────────────────────────────
+
+  [1] Visit: https://script.google.com
+  [2] Click: "+ New Project"
+  [3] Copy code from: GOOGLE_APPS_SCRIPT.js (this repo)
+  [4] Click: Deploy → New Deployment
+      └─ Type: Web app
+      └─ Execute as: Your Google Account
+      └─ Who has access: Anyone
+  [5] ⭐ COPY the Deployment URL
+      Format: https://script.google.com/macros/d/[SCRIPT_ID]/usercscript
+
+
+STEP 2: CONFIGURE THE WEBSITE
+──────────────────────────────
+
+  [1] Open: .env (in project root)
+      If it doesn't exist, copy from .env.example
+  
+  [2] Add this line:
+      VITE_GOOGLE_SCRIPT_URL=https://script.google.com/macros/d/[SCRIPT_ID]/usercscript
+      
+      ⚠️  Replace [SCRIPT_ID] with your actual Script ID from Step 1.5
+
+  [3] Rebuild locally:
+      $ npm run build
+
+  [4] Test locally:
+      $ npm run dev
+      → Go to http://localhost:5173
+      → Submit test RSVP
+      → Check your Google Sheet
+
+
+STEP 3: DEPLOY TO PRODUCTION (VERCEL)
+──────────────────────────────────────
+
+  [1] Go to: https://vercel.com
+  [2] Select: izsabirthday2026 project
+  [3] Settings → Environment Variables
+  [4] Add new variable:
+      Name: VITE_GOOGLE_SCRIPT_URL
+      Value: Your full deployment URL from Step 1.5
+  [5] Redeploy the project
+
+
+DATA FLOW DIAGRAM
+─────────────────
+
+  Guest fills RSVP form
+          ↓
+    Submit button clicked
+          ↓
+  ┌───────┴────────┐
+  ↓                ↓
+localStorage   Google Apps Script
+  (backup)      (webhook endpoint)
+                   ↓
+              Google Sheet
+              (your data!)
+
+
+VERIFICATION CHECKLIST
+──────────────────────
+
+  ☐ Google Apps Script created and deployed
+  ☐ Deployment URL copied correctly
+  ☐ .env file has correct VITE_GOOGLE_SCRIPT_URL
+  ☐ Project rebuilt locally (npm run build)
+  ☐ Test RSVP submitted locally
+  ☐ Data appeared in Google Sheet
+  ☐ Environment variable added to Vercel
+  ☐ Vercel project redeployed
+  ☐ Production test RSVP submitted
+  ☐ Data appeared in Google Sheet from production
+
+
+QUICK TEST
+──────────
+
+  In Google Apps Script Editor:
+  [1] Select function: testRSVP
+  [2] Click: Run button (▶)
+  [3] Check your Google Sheet - should show test row
+
+  On the website:
+  [1] Scroll to RSVP form
+  [2] Fill in: Name, Attending, Guest Count
+  [3] Submit
+  [4] Open your Google Sheet in a new tab
+  [5] New row should appear in 5-10 seconds
+
+
+FILES CREATED/MODIFIED
+──────────────────────
+
+  CREATED:
+    ✓ GOOGLE_APPS_SCRIPT.js - The webhook handler
+    ✓ RSVP_GOOGLE_SHEETS_SETUP.md - Full setup guide
+    ✓ QUICK_START_RSVP.md - Quick reference
+    ✓ .env.example - Template for environment variables
+
+  MODIFIED:
+    ✓ src/components/RSVPForm.tsx - Added Google Sheets sync
+    ✓ .env - (You create this with your Script URL)
+
+
+TROUBLESHOOTING
+───────────────
+
+  Problem: No data in Google Sheet
+  ├─ Check 1: .env has correct VITE_GOOGLE_SCRIPT_URL
+  ├─ Check 2: Website rebuilt after .env change
+  ├─ Check 3: Open DevTools (F12) → Console, submit RSVP, look for errors
+  └─ Check 4: Google Sheet permissions (must be accessible)
+
+  Problem: RSVP form still works but no Google Sheet sync
+  ├─ This is OK! Data is saved locally in browser
+  ├─ Check: Is VITE_GOOGLE_SCRIPT_URL environment variable set?
+  └─ Solution: Set it in Vercel, redeploy, try again
+
+  Problem: Permission error in Google Apps Script
+  ├─ Solution: Run test function first
+  ├─ Accept permission prompts
+  └─ Try website RSVP again
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          You're all set! 🎉
+═══════════════════════════════════════════════════════════════════════════════
