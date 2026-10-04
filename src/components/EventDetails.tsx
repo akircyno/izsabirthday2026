@@ -57,7 +57,7 @@ export const EventDetails: React.FC = () => {
         >
           <img
             src={venueSketch}
-            alt="Best Western Plus Hotel Subic"
+            alt="Viktor Brew + Bar Venue"
             className="w-full h-auto object-cover rounded filter contrast-[1.05] sepia-[15%]"
           />
           <div className="absolute top-3 left-3 w-3 h-3 border-t border-l border-[#8b1e2c]/70" />
@@ -75,16 +75,10 @@ export const EventDetails: React.FC = () => {
           className="space-y-1.5"
         >
           <p className="font-serif text-base sm:text-lg font-medium text-[#420914] tracking-wider uppercase">
-            Best Western Plus Hotel Subic
+            Second Floor - Viktor Brew + Bar
           </p>
           <p className="text-xs uppercase tracking-[0.16em] text-[#5e1927] font-light">
-            Second Floor • Dewey Avenue
-          </p>
-          <p className="text-[11px] tracking-[0.14em] text-[#782335] uppercase">
-            Subic Bay Freeport Zone
-          </p>
-          <p className="text-[11px] italic text-[#8b1e2c] font-serif pt-1">
-            Landmark: Near 727 Coffee
+            Subic Bay
           </p>
         </motion.div>
       </div>
