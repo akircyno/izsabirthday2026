@@ -1,28 +1,96 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Send } from 'lucide-react';
+import { Heart, Send, Loader2, RefreshCw } from 'lucide-react';
 import type { GuestWish } from '../types';
 
-interface WishesWallProps {
-  wishes: GuestWish[];
-  onAddWish: (name: string, message: string) => void;
-}
+// Google Apps Script Web App — doGet returns all wishes, doPost adds a new one
+const APPS_SCRIPT_URL =
+  'https://script.google.com/macros/s/AKfycbzbX5sVPB1xqXIkh0LcVBmKRAqXfnqjVjDqMnfZ0s0LDO6MBiN5wTSuLqYcAbClDkqC/exec';
 
 const inputClass =
   'w-full px-4 py-3 rounded-xl bg-[#2b0811]/90 border border-[#dfa85f]/30 text-[#f8ede3] text-xs sm:text-sm focus:outline-none focus:border-[#dfa85f] placeholder:text-[#8a6870] font-light transition-colors';
 
-export const WishesWall: React.FC<WishesWallProps> = ({ wishes, onAddWish }) => {
+export const WishesWall: React.FC = () => {
+  const [wishes, setWishes] = useState<GuestWish[]>([]);
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [likedIds, setLikedIds] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // ── Fetch all wishes from Google Sheets via Apps Script ──────────────────
+  const fetchWishes = useCallback(async () => {
+    setIsLoading(true);
+    setLoadError(false);
+    try {
+      const res = await fetch(`${APPS_SCRIPT_URL}?action=getWishes`, {
+        method: 'GET',
+        mode: 'cors',
+      });
+      if (!res.ok) throw new Error('Network response was not ok');
+      const data = await res.json();
+      if (data.success && Array.isArray(data.wishes)) {
+        setWishes(data.wishes);
+        localStorage.setItem('izsa_21_wishes_cache', JSON.stringify(data.wishes));
+      }
+    } catch {
+      // Fall back to local cache if network fails
+      const cache = localStorage.getItem('izsa_21_wishes_cache');
+      if (cache) {
+        try { setWishes(JSON.parse(cache)); } catch { /* ignore */ }
+      }
+      setLoadError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { fetchWishes(); }, [fetchWishes]);
+
+  // ── Submit a new wish ─────────────────────────────────────────────────────
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
-    const author = name.trim() || 'A Warm Guest';
-    onAddWish(author, message.trim());
+    setIsSubmitting(true);
+
+    const newWish: GuestWish = {
+      id: Date.now().toString(),
+      name: name.trim() || 'A Warm Guest',
+      message: message.trim(),
+      date: 'Just now',
+    };
+
+    // Optimistically show in UI immediately
+    setWishes((prev) => [newWish, ...prev]);
     setName('');
     setMessage('');
+    setSubmitSuccess(true);
+    setTimeout(() => setSubmitSuccess(false), 3000);
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'addWish',
+          id: newWish.id,
+          name: newWish.name,
+          message: newWish.message,
+          date: new Date().toLocaleDateString('en-US', {
+            month: 'short', day: 'numeric', year: 'numeric',
+          }),
+        }),
+      });
+      // Re-fetch after a short delay to get server-confirmed list
+      setTimeout(() => fetchWishes(), 2500);
+    } catch {
+      console.warn('Could not sync wish to Google Sheets');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const toggleLike = (id: string) => {
@@ -56,8 +124,16 @@ export const WishesWall: React.FC<WishesWallProps> = ({ wishes, onAddWish }) => 
           Leave a message or greeting for my 21st birthday.
         </p>
 
-        {/* Input Form */}
-        <form onSubmit={handleSubmit} className="p-5 sm:p-6 rounded-2xl bg-[#22050c]/80 border border-[#dfa85f]/30 shadow-xl space-y-3 text-left mb-8">
+        {/* ── Input Form ──────────────────────────────────────────────────── */}
+        <form
+          onSubmit={handleSubmit}
+          className="p-5 sm:p-6 rounded-2xl bg-[#22050c]/80 border border-[#dfa85f]/30 shadow-xl space-y-3 text-left mb-8"
+        >
+          {submitSuccess && (
+            <div className="p-3 rounded-xl bg-[#2a6e1e]/30 border border-[#7ed87e]/40 text-xs text-[#b8f0b8] text-center">
+              🎉 Your wish was sent! Thank you!
+            </div>
+          )}
           <input
             type="text"
             placeholder="Your Name (Optional)"
@@ -75,22 +151,47 @@ export const WishesWall: React.FC<WishesWallProps> = ({ wishes, onAddWish }) => 
           />
           <button
             type="submit"
-            className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-[#8b1e2c] to-[#a32839] hover:brightness-110 text-[#fff1d6] font-cinzel text-xs uppercase tracking-[0.2em] font-medium transition-all flex items-center justify-center gap-2 cursor-pointer border border-[#dfa85f]/40 shadow-md"
+            disabled={isSubmitting}
+            className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-[#8b1e2c] to-[#a32839] hover:brightness-110 text-[#fff1d6] font-cinzel text-xs uppercase tracking-[0.2em] font-medium transition-all flex items-center justify-center gap-2 cursor-pointer border border-[#dfa85f]/40 shadow-md disabled:opacity-60"
           >
-            <Send className="w-3.5 h-3.5" />
-            <span>Send Birthday Wish</span>
+            {isSubmitting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+            <span>{isSubmitting ? 'Sending…' : 'Send Birthday Wish'}</span>
           </button>
         </form>
 
-        {/* Wishes List */}
-        {wishes.length === 0 ? (
-          <div className="py-8 px-4 rounded-xl border border-dashed border-[#dfa85f]/30 text-center">
+        {/* ── Wishes List ─────────────────────────────────────────────────── */}
+        {isLoading ? (
+          <div className="py-10 flex flex-col items-center gap-3 text-[#dfa85f]/60">
+            <Loader2 className="w-5 h-5 animate-spin" />
+            <p className="text-xs font-cinzel tracking-widest uppercase">Loading wishes…</p>
+          </div>
+        ) : wishes.length === 0 ? (
+          <div className="py-8 px-4 rounded-xl border border-dashed border-[#dfa85f]/30 text-center space-y-3">
             <p className="text-xs text-[#dfa85f]/80 font-serif italic">
               Be the first to leave a warm birthday greeting for me!
             </p>
+            {loadError && (
+              <button
+                onClick={fetchWishes}
+                className="inline-flex items-center gap-1.5 text-[10px] text-[#dfa85f]/60 hover:text-[#dfa85f] transition-colors font-cinzel uppercase tracking-widest cursor-pointer"
+              >
+                <RefreshCw className="w-3 h-3" /> Retry
+              </button>
+            )}
           </div>
         ) : (
           <div className="space-y-3 text-left">
+            {loadError && (
+              <div className="flex items-center justify-between mb-2 px-1">
+                <p className="text-[10px] text-[#dfa85f]/50 italic">Showing cached wishes</p>
+                <button
+                  onClick={fetchWishes}
+                  className="inline-flex items-center gap-1 text-[10px] text-[#dfa85f]/60 hover:text-[#dfa85f] transition-colors font-cinzel uppercase tracking-widest cursor-pointer"
+                >
+                  <RefreshCw className="w-3 h-3" /> Refresh
+                </button>
+              </div>
+            )}
             {wishes.map((wish, index) => {
               const isLiked = likedIds.includes(wish.id);
               return (

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { EnvelopeHero } from './components/EnvelopeHero';
 import { HeroSaveTheDate } from './components/HeroSaveTheDate';
 import { EventDetails } from './components/EventDetails';
@@ -10,42 +10,13 @@ import { RSVPForm } from './components/RSVPForm';
 import { WishesWall } from './components/WishesWall';
 import { MusicPlayer } from './components/MusicPlayer';
 import { Footer } from './components/Footer';
-import type { RSVPData, GuestWish } from './types';
+import type { RSVPData } from './types';
 
 function App() {
   const [hasEntered, setHasEntered] = useState(false);
-  const [wishes, setWishes] = useState<GuestWish[]>([]);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('izsa_21_wishes') || localStorage.getItem('trizsa_21_wishes');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        // Filter out any legacy hardcoded placeholder IDs
-        const filtered = Array.isArray(parsed)
-          ? parsed.filter((w: GuestWish) => w.id !== '1' && w.id !== '2')
-          : [];
-        setWishes(filtered);
-      } catch (e) {
-        console.error('Failed to parse saved wishes:', e);
-      }
-    }
-  }, []);
-
-  const handleAddWish = (name: string, message: string) => {
-    const newWish: GuestWish = {
-      id: Date.now().toString(),
-      name: name.trim() || 'A Warm Guest',
-      message: message.trim(),
-      date: 'Just now',
-    };
-    const updated = [newWish, ...wishes];
-    setWishes(updated);
-    localStorage.setItem('izsa_21_wishes', JSON.stringify(updated));
-  };
 
   const handleRSVPSubmitted = (_data: RSVPData) => {
-    // RSVP is recorded in localStorage and state
+    // RSVP is recorded in localStorage and Google Sheets
   };
 
   return (
@@ -88,7 +59,7 @@ function App() {
         <RSVPForm onRSVPSubmitted={handleRSVPSubmitted} />
 
         {/* Card 8: Celebration Guestbook / Wishes for Izsa */}
-        <WishesWall wishes={wishes} onAddWish={handleAddWish} />
+        <WishesWall />
 
         {/* Card 9: Footer */}
         <Footer />
