@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
 const LETTER_PARAGRAPHS = [
-  'Dear Friends,',
-  'Turning 21 is a special milestone, and as I step into this new chapter, I am overwhelmed with gratitude for each of you who has been part of my life.',
-  'Every memory, conversation, and laugh we have shared has shaped who I am today. Having your love and support means more to me than words can say.',
-  'For my 21st birthday, my only wish is to celebrate together with good food, great music, and the people closest to my heart.',
-  'I cannot wait to celebrate this night with you.',
+  'Dearest Friends and Loved Ones,',
+  'I\'d really love for you all to come and spend the night with me as I celebrate my 21st birthday. I just want you to know how much I truly value and appreciate each and every one of you.',
+  'Thank you for being part of my life and for all the memories we\'ve shared. I may not always be the best at showing or saying how much you mean to me, but I genuinely love having you guys around, and I hope you feel the same way about having me in your lives too.',
+  'So for my 21st, I just want a night surrounded by people I love, good energy, and memories we\'ll look back on someday.',
+  'Turning 21 is such a special milestone for me, and it would mean so much to celebrate it with the people who have been part of my journey. Let\'s make even more memories together and make this night one to remember.',
+  'I hope you can all come and celebrate with me!',
 ];
 
 interface LetterModalProps {

@@ -5,7 +5,7 @@ export const Footer: React.FC = () => {
     <footer className="w-full py-14 px-4 text-center bg-[#0c0204] text-[#d4c3b3]">
       <div className="max-w-[420px] mx-auto space-y-4">
         {/* Monogram / Crest */}
-        <div className="w-12 h-12 rounded-full border border-[#dfa85f]/40 mx-auto flex items-center justify-center bg-[#1a0409]">
+        <div className="w-12 h-12 rounded-full border border-[#dfa85f]/40 mx-auto flex items-center justify-center bg-[#1a0409] leading-none">
           <span className="font-script text-3xl text-[#fce0ad] select-none filter drop-shadow-[0_1px_6px_rgba(223,168,95,0.6)]">
             T
           </span>

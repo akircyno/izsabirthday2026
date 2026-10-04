@@ -65,7 +65,7 @@ export const GiftEtiquette: React.FC = () => {
               A Simple Gift or Letter
             </p>
             <p className="text-xs text-[#6e2030] leading-relaxed max-w-xs font-light">
-              Gifts are not required at all. Should you wish to bring something, a simple gift or a heartfelt handwritten letter is warmly appreciated to help me begin my 21st chapter.
+              Gifts are not required at all. Should you wish to bring something, a simple gift or a heartfelt handwritten letter is warmly appreciated.
             </p>
           </motion.div>
         </div>
