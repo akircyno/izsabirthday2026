@@ -3,6 +3,18 @@ import { motion } from 'framer-motion';
 import { Heart, Send, Loader2, RefreshCw } from 'lucide-react';
 import type { GuestWish } from '../types';
 
+// Safely format any date string — avoids showing raw GMT strings from Sheets
+function formatWishDate(raw: string): string {
+  if (!raw || raw === 'Just now') return raw;
+  try {
+    const d = new Date(raw);
+    if (isNaN(d.getTime())) return raw; // if unparseable, return as-is
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  } catch {
+    return raw;
+  }
+}
+
 // Google Apps Script Web App — doGet returns all wishes, doPost adds a new one
 const APPS_SCRIPT_URL =
   'https://script.google.com/macros/s/AKfycbyXLYSxrikd2zC2hPJ19eC8O82rnUTEffWdO3RXBjWYUxoCBIXB0FzG4gH7ikw2ihCupw/exec';
@@ -57,9 +69,9 @@ export const WishesWall: React.FC = () => {
 
     const newWish: GuestWish = {
       id: Date.now().toString(),
-      name: name.trim() || 'A Warm Guest',
+      name: name.trim() || 'Anonymous',
       message: message.trim(),
-      date: 'Just now',
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
     };
 
     // Optimistically show in UI immediately
@@ -207,7 +219,7 @@ export const WishesWall: React.FC = () => {
                     <span className="font-serif text-sm sm:text-base text-[#fce0ad] font-medium">
                       {wish.name}
                     </span>
-                    <span className="text-[10px] text-[#dfa85f]/60 font-cinzel">{wish.date}</span>
+                    <span className="text-[10px] text-[#dfa85f]/60 font-cinzel">{formatWishDate(wish.date)}</span>
                   </div>
                   <p className="text-xs text-[#ebdcd1] leading-relaxed font-light mb-2">
                     "{wish.message}"
