@@ -10,13 +10,19 @@ import { RSVPForm } from './components/RSVPForm';
 import { WishesWall } from './components/WishesWall';
 import { MusicPlayer } from './components/MusicPlayer';
 import { Footer } from './components/Footer';
+import { RecoverPage } from './components/RecoverPage';
 import type { RSVPData } from './types';
 
 function App() {
   const [hasEntered, setHasEntered] = useState(false);
 
+  // Simple hash-based routing — no react-router needed
+  if (window.location.pathname === '/recover' || window.location.hash === '#/recover') {
+    return <RecoverPage />;
+  }
+
   const handleRSVPSubmitted = (_data: RSVPData) => {
-    // RSVP is recorded in localStorage and Google Sheets
+    // RSVP is recorded in Google Sheets via Apps Script
   };
 
   return (
