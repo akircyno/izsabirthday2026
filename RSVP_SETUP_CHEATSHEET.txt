@@ -1,0 +1,118 @@
+RSVP → GOOGLE SHEETS INTEGRATION - SETUP CHEATSHEET
+════════════════════════════════════════════════════
+
+BEFORE YOU START
+━━━━━━━━━━━━━━━━
+
+✓ Google Account access
+✓ Access to Google Sheet
+✓ Vercel dashboard access
+
+
+STEP 1: DEPLOY GOOGLE APPS SCRIPT (3 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] Go to: https://script.google.com
+[ ] Click: "+ New Project"
+[ ] Copy code from: GOOGLE_APPS_SCRIPT.js
+[ ] Paste into editor
+[ ] Click: Deploy → New Deployment
+[ ] Type: Web app
+[ ] Execute as: Your email
+[ ] Who has access: Anyone
+[ ] Click: Deploy
+[ ] ⭐ SAVE this URL:
+    https://script.google.com/macros/d/[...]/usercscript
+
+
+STEP 2: CONFIGURE .env FILE (2 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] Create file: .env (in project root)
+[ ] Add line:
+    VITE_GOOGLE_SCRIPT_URL=YOUR_URL_FROM_STEP_1
+[ ] Save
+
+
+STEP 3: TEST LOCALLY (2 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] Run: npm run build
+[ ] Run: npm run dev
+[ ] Open: http://localhost:5173
+[ ] Submit test RSVP
+[ ] Check Google Sheet → data appears?
+    ✓ YES → Success!
+    ✗ NO → See TROUBLESHOOTING
+
+
+STEP 4: DEPLOY TO VERCEL (3 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] Go to: https://vercel.com
+[ ] Select: izsabirthday2026
+[ ] Settings → Environment Variables
+[ ] Add: VITE_GOOGLE_SCRIPT_URL
+[ ] Value: Your URL from Step 1
+[ ] Redeploy
+[ ] Test on production
+[ ] Done! ✓
+
+
+TROUBLESHOOTING QUICK FIXES
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+No data in sheet?
+├─ Check .env has correct URL
+├─ Rebuild: npm run build
+├─ Open F12 Console → check for errors
+└─ See RSVP_GOOGLE_SHEETS_SETUP.md for detailed help
+
+RSVP form not working?
+├─ Data still saves locally
+├─ Check browser console for errors
+├─ Hard refresh: Ctrl+F5
+└─ Try again
+
+
+SUCCESS CHECKLIST
+━━━━━━━━━━━━━━━
+
+[ ] Google Apps Script deployed
+[ ] URL saved from Step 1
+[ ] .env file configured
+[ ] Local build successful
+[ ] Local test RSVP synced
+[ ] Vercel env variable set
+[ ] Production redeployed
+[ ] Production RSVP synced
+[ ] ✓ COMPLETE!
+
+
+GOOGLE SHEET COLUMNS
+━━━━━━━━━━━━━━━━━━━
+
+Column A: Timestamp
+Column B: Full Name
+Column C: Attending (YES/NO)
+Column D: Guest Count
+Column E: Additional Guests
+Column F: Submitted At
+Column G: ID
+
+Header row: burgundy with gold text
+
+
+DOCUMENTATION
+━━━━━━━━━━━━━
+
+1. README_RSVP_INTEGRATION.md - Overview
+2. QUICK_START_RSVP.md - 5-min setup
+3. RSVP_GOOGLE_SHEETS_SETUP.md - Full guide
+4. SETUP_STEPS.txt - Visual guide
+5. IMPLEMENTATION_SUMMARY.md - Tech details
+
+
+════════════════════════════════════════════════════
+           YOU'RE READY - LET'S GO! 🚀
+════════════════════════════════════════════════════
