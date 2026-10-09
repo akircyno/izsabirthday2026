@@ -42,7 +42,7 @@ export const EventDetails: React.FC = () => {
             Izsa
           </h3>
           <p className="text-[10px] uppercase tracking-[0.25em] text-[#8b1e2c]/80 mt-1.5 font-cinzel">
-            Sunday, October 11, 2026 • 9:00 PM
+            Sunday, October 11, 2026 • 8:00 PM
           </p>
           <div className="w-12 h-[1px] bg-[#8b1e2c]/30 mx-auto mt-3" />
         </motion.div>

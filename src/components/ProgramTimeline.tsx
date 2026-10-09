@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Clock } from 'lucide-react';
 
 export const ProgramTimeline: React.FC = () => {
-  const targetDate = new Date('2026-10-11T21:00:00+08:00').getTime();
+  const targetDate = new Date('2026-10-11T20:00:00+08:00').getTime();
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -43,12 +43,12 @@ export const ProgramTimeline: React.FC = () => {
 
   const timelineItems = [
     {
-      time: '8:45 PM',
+      time: '7:45 PM',
       title: 'Guests Arrival',
       detail: 'Please arrive 15 minutes early',
     },
     {
-      time: '9:00 PM',
+      time: '8:00 PM',
       title: 'Dinner Celebration',
       detail: 'Start of dinner & program festivities',
     },
