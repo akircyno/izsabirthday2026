@@ -26,38 +26,31 @@ export const HeroSaveTheDate: React.FC = () => {
           Save the Date
         </motion.p>
 
-        {/* Gold Laurel Monogram Crest with Big Cursive T */}
+        {/* Monogram + Name */}
         <motion.div
           initial={{ opacity: 0, scale: 0.88 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.15 }}
-          className="my-4 flex justify-center"
+          className="my-4 flex flex-col items-center gap-1"
         >
-          {/* Outer Laurel Ornament */}
-          <div className="absolute inset-0 rounded-full border border-dashed border-[#dfa85f]/50 p-2 w-32 h-32" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
-            <div className="w-full h-full rounded-full border border-[#dfa85f]/30 bg-[#330814]/40" />
-          </div>
+          {/* Cursive T monogram */}
+          <span className="font-script text-8xl text-[#fce0ad] select-none leading-none filter drop-shadow-[0_2px_14px_rgba(223,168,95,0.8)]">
+            T
+          </span>
 
-          {/* Authentic Cursive Monogram Big T - Centered Inside Circle */}
-          <div className="relative z-10 w-32 h-32 flex items-center justify-center">
-            <span className="font-script text-7xl text-[#fce0ad] select-none filter drop-shadow-[0_2px_14px_rgba(223,168,95,0.8)] leading-none">
-              T
-            </span>
-          </div>
+          {/* Script Name */}
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="font-script text-4xl sm:text-5xl text-white tracking-wide mb-1"
+            style={{ textShadow: '0 2px 20px rgba(223,168,95,0.4)' }}
+          >
+            Trizsa Reign
+          </motion.h2>
         </motion.div>
-
-        {/* Script Name */}
-        <motion.h2
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="font-script text-4xl sm:text-5xl text-white tracking-wide mt-3 mb-1"
-          style={{ textShadow: '0 2px 20px rgba(223,168,95,0.4)' }}
-        >
-          Trizsa Reign
-        </motion.h2>
 
         <motion.p
           initial={{ opacity: 0 }}
@@ -82,7 +75,7 @@ export const HeroSaveTheDate: React.FC = () => {
             10 / 11 / 2026
           </p>
           <p className="text-[10px] tracking-[0.26em] text-[#d4c3b3]/80 uppercase font-light">
-            Sunday • 9:00 PM • Subic Bay
+            Sunday • 8:00 PM • Subic Bay
           </p>
         </motion.div>
       </div>
